@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nba_predictor"
+version = "0.1.0"
+description = "Sistema de Predicción NBA usando Arquitectura Limpia"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Developer", email = "dev@example.com"}
+]
+dependencies = [
+    "nba_api>=1.6.0",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "scipy>=1.11.0",
+    "pyarrow>=15.0.0",
+    "openpyxl>=3.1.0",
+    "pyyaml>=6.0",
+    "requests>=2.28.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--tb=short",
+    "--cov=nba_predictor",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-branch",
+    "--ignore=tests/presentation",
+]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+    "slow: Slow running tests",
+]
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["domain", "application", "infrastructure", "presentation"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "@abstractmethod",
+]

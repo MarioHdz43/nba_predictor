@@ -1,0 +1,94 @@
+# config.example.yaml - Plantilla de configuración centralizada del sistema
+# =======================================================================
+# Copia este archivo a 'config.yaml' y ajusta tus credenciales y rutas locales.
+
+# --- Pesos por estadística (deben sumar ~1.0 en valor absoluto) ---
+weights:
+  PTS:        0.30
+  FG_PCT:     0.20
+  FG3_PCT:    0.15
+  REB:        0.10
+  AST:        0.10
+  TOV:       -0.05   # negativo: más pérdidas = peor
+  STL:        0.05
+  BLK:        0.05
+  PLUS_MINUS: 0.10
+
+# --- Rango típico de cada estadística en la NBA (para normalización) ---
+normalization:
+  PTS:        20.0
+  FG_PCT:      0.1
+  FG3_PCT:     0.1
+  REB:        10.0
+  AST:         8.0
+  TOV:         5.0
+  STL:         4.0
+  BLK:         3.0
+  PLUS_MINUS: 15.0
+
+# --- Ventaja de jugar en casa (%) ---
+home_advantage: 0.05
+
+# --- Configuración del motor de predicción ---
+prediction:
+  engine: "heuristic"  # heuristic | ml | xgboost | hybrid
+  min_probability: 0.1
+  max_probability: 0.9
+  confidence_threshold: 0.3
+  significant_factor_threshold: 0.3
+  # FASE 1: Recent form + Injuries
+  recent_form_weight: 2.0  # Multiplicador para forma reciente (1.0 = mismo peso)
+  injury_impact: 5.0  # Puntos equivalentes por jugador titular lesionado
+  # FASE 2: Head-to-head
+  h2h_weight: 0.15  # Peso para H2H histórico (0.15 = 15%)
+  h2h_min_games: 3  # Mínimo partidos para aplicar ajuste
+  # FASE 3: ML Spread / XGBoost
+  ml_weight: 0.5  # Peso para ML en modo híbrido (0.5 = 50%)
+  model_path: "models/nba_spread_model.joblib"  # Path al modelo entrenado
+
+# --- Caché ---
+cache:
+  ttl_hours: 2
+  max_entries: 50
+
+# --- Logging ---
+logging:
+  level: "INFO"  # DEBUG | INFO | WARNING | ERROR
+  format: "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+  date_format: "%H:%M:%S"
+  file: null  # null = solo stderr, o ruta a archivo de log
+
+# --- NBA API ---
+nba_api:
+  timeout_seconds: 30
+  retry_attempts: 3
+  retry_delay_seconds: 2
+
+# --- Repository ---
+repository:
+  type: "sqlite"  # sqlite | csv
+  team_csv: "team_data.csv"
+  history_csv: "prediction_history.csv"
+
+# --- Database (SQLite) ---
+database:
+  path: "nba_predictor.db"
+
+# --- Bet Tracking (Excel Ledger) ---
+bet_tracking:
+  excel_path: "nba_bet_tracking.xlsx"
+
+# --- The Odds API (Live Odds) ---
+# Obtén tu API key gratuita en: https://the-odds-api.com/
+odds_api_key: "YOUR_ODDS_API_KEY_HERE"
+
+odds_api:
+  api_key: "YOUR_ODDS_API_KEY_HERE"
+  regions: "us,eu"
+  markets: "h2h"
+
+# --- API ---
+api:
+  port: 8000
+  title: "NBA Predictor API"
+  version: "1.0.0"

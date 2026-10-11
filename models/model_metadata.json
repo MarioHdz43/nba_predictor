@@ -1,0 +1,63 @@
+{
+  "model_path": "nba_spread_model.joblib",
+  "model_type": "lightgbm",
+  "sigma_mov": 14.3122,
+  "features_count": 31,
+  "features": [
+    "diff_net_rtg",
+    "diff_ortg",
+    "diff_drtg",
+    "diff_efg_pct",
+    "diff_tov_pct",
+    "diff_orb_pct",
+    "diff_drb_pct",
+    "diff_ft_rate",
+    "diff_opp_efg_pct",
+    "diff_opp_tov_pct",
+    "diff_opp_ft_rate",
+    "diff_poss",
+    "diff_pts",
+    "diff_opp_pts",
+    "home_ewma_net_rtg",
+    "away_ewma_net_rtg",
+    "home_ewma_ortg",
+    "away_ewma_ortg",
+    "home_ewma_drtg",
+    "away_ewma_drtg",
+    "home_ewma_efg_pct",
+    "away_ewma_efg_pct",
+    "rest_advantage",
+    "home_rest_days",
+    "away_rest_days",
+    "home_is_b2b",
+    "away_is_b2b",
+    "is_altitude_advantage",
+    "travel_miles_away",
+    "time_zones_crossed_away",
+    "travel_fatigue_away"
+  ],
+  "beta_calibration": {
+    "a": 0.9984749957147336,
+    "b": 1.253563413801477,
+    "c": -0.22530595494587946,
+    "is_fitted": true
+  },
+  "validation_metrics": {
+    "mae": 11.2267,
+    "rmse": 14.3122,
+    "accuracy": 0.6553,
+    "brier_score": 0.2156,
+    "log_loss": 0.6205,
+    "samples_evaluated": 1230,
+    "brier_score_calibrated": 0.2153
+  },
+  "fold_reports": [
+    {
+      "test_season": "2023-24",
+      "train_samples": 2396,
+      "test_samples": 1230,
+      "mae": 11.2267,
+      "rmse": 14.3122
+    }
+  ]
+}
